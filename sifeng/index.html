@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="肆风，记录探索、灵感与生活的个人空间。">
+  <meta name="theme-color" content="#182d40"><title>肆风 · 自在如风</title>
+  <link rel="icon" href="assets/wind.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css"><script src="site.config.js" defer></script><script src="app.js" defer></script>
+</head>
+<body>
+  <svg class="icon-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+    <symbol id="i-wind" viewBox="0 0 24 24"><path d="M3 8h12a3 3 0 1 0-3-3M2 12h17a3 3 0 1 1-3 3M5 16h5a3 3 0 1 1-3 3"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7M5 9v12h5v-7h4v7h5V9"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/></symbol>
+    <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3 3h8l10 10-8 8L3 11Z"/><circle cx="7.5" cy="7.5" r="1"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7V4h6l3 3h9v13H3Z"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M4 21v-3a8 8 0 0 1 16 0v3"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="7"/><path d="m16 16 5 5"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 15A9 9 0 0 1 9 4a9 9 0 1 0 11 11Z"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="m10 13 4-4M8 15l-2 2a4 4 0 0 1-5-5l5-5a4 4 0 0 1 6 0m0 2 2-2a4 4 0 0 1 5 5l-5 5a4 4 0 0 1-6 0" transform="translate(2 1)"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 5C8 2 4 3 2 4v15c4-2 7-1 10 1 3-2 6-3 10-1V4c-4-2-7-1-10 1Zm0 0v15"/></symbol>
+  </defs></svg>
+  <header id="hero" class="hero">
+    <div class="hero-art" aria-hidden="true"></div><div class="hero-shade"></div>
+    <nav class="topbar" aria-label="主导航">
+      <a href="#/" class="brand"><svg class="icon"><use href="#i-wind"/></svg><span data-site-name>肆风</span><span class="brand-dot"></span></a>
+      <div class="nav-links" id="nav-links">
+        <a href="#/" data-route="home"><svg class="icon"><use href="#i-home"/></svg>首页</a>
+        <a href="#/archives" data-route="archives"><svg class="icon"><use href="#i-clock"/></svg>归档</a>
+        <a href="#/tags" data-route="tags"><svg class="icon"><use href="#i-tag"/></svg>标签</a>
+        <a href="#/categories" data-route="categories"><svg class="icon"><use href="#i-folder"/></svg>分类</a>
+        <a href="#/links" data-route="links"><svg class="icon"><use href="#i-link"/></svg>友链</a>
+        <a href="#/about" data-route="about"><svg class="icon"><use href="#i-user"/></svg>关于</a>
+      </div>
+      <div class="nav-actions"><button class="icon-button" id="search-button" aria-label="搜索文章"><svg class="icon"><use href="#i-search"/></svg></button><span class="nav-divider"></span><button class="icon-button" id="theme-button" aria-label="切换深色模式" aria-pressed="false"><svg class="icon"><use href="#i-moon"/></svg></button><button class="icon-button mobile-menu" id="menu-button" aria-expanded="false" aria-controls="nav-links" aria-label="展开导航"><svg class="icon"><use href="#i-menu"/></svg></button></div>
+    </nav>
+    <div class="hero-copy"><p class="hero-eyebrow">A LITTLE SPACE, A WIDER WORLD</p><h1 id="hero-title">肆风</h1><p class="hero-subtitle" id="hero-subtitle">肆意生长，自在如风。</p><span class="hero-rule"></span><p class="hero-note">记录的故事，终会在这里相遇</p></div>
+    <div class="hero-bottom"><span class="hero-coordinate">THOUGHTS · MOMENTS · EXPLORATIONS</span><a href="#content" class="scroll-cue" aria-label="向下浏览"><span>向下探索</span><svg class="icon"><use href="#i-arrow"/></svg></a><span class="hero-season">随风而行 <span>✦</span></span></div>
+  </header>
+  <main class="page-layout" id="content" tabindex="-1">
+    <section class="main-column" id="main-view" aria-live="polite"></section>
+    <aside class="sidebar" aria-label="博客信息">
+      <section class="card profile-card"><div class="profile-banner"></div><div class="avatar"><svg class="icon"><use href="#i-wind"/></svg></div><h2 data-site-name>肆风</h2><p id="profile-bio">在自己的节奏里，与世界相遇。</p><div class="stats"><a href="#/archives"><span>文章</span><strong id="post-count">0</strong></a><a href="#/tags"><span>标签</span><strong id="tag-count">0</strong></a><a href="#/categories"><span>分类</span><strong id="category-count">0</strong></a></div><a class="profile-link" href="#/about">认识一下<svg class="icon"><use href="#i-user"/></svg></a></section>
+      <section class="card sidebar-card"><h3><span class="small-orb"></span>小小公告</h3><p id="announcement">这里刚刚启程，故事慢慢写。<br>欢迎路过，也欢迎下次再来。</p><span class="tiny-caption">STAY CURIOUS, STAY FREE.</span></section>
+      <section class="card sidebar-card"><h3><svg class="icon"><use href="#i-clock"/></svg>最近更新</h3><div id="recent-posts" class="sidebar-empty">还没有文章，静候第一篇。</div></section>
+      <section class="card sidebar-card site-info"><h3><svg class="icon"><use href="#i-wind"/></svg>这个小站</h3><p><span>文章总数</span><span id="info-count">0 篇</span></p><p><span>此刻的状态</span><span class="status"><i></i>慢慢生长</span></p><p><span>建站于</span><span>2026</span></p></section>
+    </aside>
+  </main>
+  <footer class="footer"><a class="footer-brand" href="#/">肆风<span> / SIFENG</span></a><p>愿每一阵风，都带来新的灵感。</p><div class="footer-bottom"><span>© <span id="year">2026</span> 肆风</span><span>留一方天地，安放所思所想。</span><a href="#/about">关于本站 ↗</a></div></footer>
+  <button id="back-to-top" class="back-to-top" aria-label="返回顶部"><svg class="icon"><use href="#i-arrow"/></svg></button>
+  <dialog id="search-dialog"><div class="search-heading"><h2>寻找一些片刻</h2><button id="search-close" class="close-button" aria-label="关闭搜索">×</button></div><label class="search-field"><svg class="icon"><use href="#i-search"/></svg><input id="search-input" type="search" placeholder="输入标题、标签或关键词…" autocomplete="off" aria-label="搜索文章关键词"></label><div id="search-results" class="search-results" aria-live="polite"></div><p class="search-hint"><kbd>Esc</kbd> 关闭 · 在这里，寻找曾经的灵感</p></dialog>
+</body></html>
