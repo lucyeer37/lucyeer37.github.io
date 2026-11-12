@@ -5,7 +5,7 @@
   const issueURL = `https://github.com/${repository}/issues/${issueNumber}`;
   const apiURL = `https://api.github.com/repos/${repository}/issues/${issueNumber}`;
   const pageSize = 20;
-  const state = { comments: [], total: null, nextPage: 0, loading: false, loaded: false, error: '', locked: false, request: 0 };
+  const state = { comments: [], total: null, nextPage: 0, loading: false, loaded: false, error: '', notice: '', snapshotComments: null, locked: false, request: 0 };
   let controller;
   const find = id => document.getElementById(id);
   const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -21,7 +21,7 @@
     if (!feed) return;
     find('guestbook-count').textContent = state.total === null ? '—' : `${state.total} 条`;
     const status = find('guestbook-status');
-    status.textContent = state.error || (state.loading ? '正在接住风里的声音…' : '');
+    status.textContent = state.error || (state.loading ? '正在接住风里的声音…' : state.notice);
     status.classList.toggle('is-error', Boolean(state.error));
     feed.setAttribute('aria-busy', String(state.loading));
     const refresh = find('guestbook-refresh');
@@ -62,8 +62,13 @@
 
   async function load(older = false) {
     if (state.loading) return;
+    if (older && state.snapshotComments) {
+      state.comments = state.snapshotComments.slice(0, state.comments.length + pageSize);
+      state.nextPage = state.comments.length < state.snapshotComments.length ? 1 : 0;
+      paint(); return;
+    }
     const revision = ++state.request;
-    state.loading = true; state.error = '';
+    state.loading = true; state.error = ''; state.notice = '';
     controller?.abort(); controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 15000);
     paint();
@@ -82,11 +87,24 @@
       if (!Array.isArray(data)) throw Error('留言数据暂时无法读取，请稍后重试。');
       if (revision !== state.request) return;
       const comments = data.filter(c => c && Number.isSafeInteger(c.id)).reverse();
+      state.snapshotComments = null;
       state.comments = older ? [...new Map([...state.comments,...comments].map(c => [c.id,c])).values()] : comments;
       state.nextPage = page - 1; state.loaded = true;
     } catch (error) {
       if (revision !== state.request) return;
-      state.error = error.name === 'AbortError' ? '连接有些慢，请点击刷新重试，或直接前往 GitHub 留言。' : error.message || '留言暂时加载失败，请稍后重试。';
+      try {
+        const snapshot = await requestJSON(`guestbook-data.json?t=${Date.now()}`, AbortSignal.timeout(10000));
+        if (snapshot.issue_number !== issueNumber || !Array.isArray(snapshot.comments) || snapshot.total !== snapshot.comments.length) throw Error('Invalid snapshot');
+        if (revision !== state.request) return;
+        state.snapshotComments = snapshot.comments.filter(c => c && Number.isSafeInteger(c.id)).reverse();
+        state.comments = state.snapshotComments.slice(0, pageSize);
+        state.total = snapshot.total; state.locked = Boolean(snapshot.locked);
+        state.nextPage = state.snapshotComments.length > pageSize ? 1 : 0;
+        state.loaded = true;
+        state.notice = '已显示最近同步的留言；新留言可能需要稍等片刻，再刷新查看。';
+      } catch {
+        state.error = error.name === 'AbortError' ? '连接有些慢，请点击刷新重试，或直接前往 GitHub 留言。' : error.message || '留言暂时加载失败，请稍后重试。';
+      }
     } finally {
       clearTimeout(timer);
       if (revision === state.request) { state.loading = false; paint(); }
