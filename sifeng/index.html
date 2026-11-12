@@ -5,7 +5,7 @@
   <meta name="description" content="肆风，记录探索、灵感与生活的个人空间。">
   <meta name="theme-color" content="#182d40"><title>肆风 · 自在如风</title>
   <link rel="icon" href="assets/wind.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="style.css"><script src="site.config.js" defer></script><script src="app.js" defer></script>
+  <link rel="stylesheet" href="style.css"><link rel="stylesheet" href="guestbook.css?v=1"><script src="site.config.js" defer></script><script src="guestbook.js?v=1" defer></script><script src="app.js?v=guestbook1" defer></script>
 </head>
 <body>
   <svg class="icon-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
@@ -21,6 +21,7 @@
     <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 15A9 9 0 0 1 9 4a9 9 0 1 0 11 11Z"/></symbol>
     <symbol id="i-link" viewBox="0 0 24 24"><path d="m10 13 4-4M8 15l-2 2a4 4 0 0 1-5-5l5-5a4 4 0 0 1 6 0m0 2 2-2a4 4 0 0 1 5 5l-5 5a4 4 0 0 1-6 0" transform="translate(2 1)"/></symbol>
     <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 5C8 2 4 3 2 4v15c4-2 7-1 10 1 3-2 6-3 10-1V4c-4-2-7-1-10 1Zm0 0v15"/></symbol>
+    <symbol id="i-message" viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5H4l-3 2V11.5a10 10 0 0 1 20 0Z"/><path d="M7 10h9M7 14h6"/></symbol>
   </defs></svg>
   <header id="hero" class="hero">
     <div class="hero-art" aria-hidden="true"></div><div class="hero-shade"></div>
@@ -32,6 +33,7 @@
         <a href="#/tags" data-route="tags"><svg class="icon"><use href="#i-tag"/></svg>标签</a>
         <a href="#/categories" data-route="categories"><svg class="icon"><use href="#i-folder"/></svg>分类</a>
         <a href="#/links" data-route="links"><svg class="icon"><use href="#i-link"/></svg>友链</a>
+        <a href="#/guestbook" data-route="guestbook"><svg class="icon"><use href="#i-message"/></svg>留言板</a>
         <a href="#/about" data-route="about"><svg class="icon"><use href="#i-user"/></svg>关于</a>
       </div>
       <div class="nav-actions"><button class="icon-button" id="search-button" aria-label="搜索文章"><svg class="icon"><use href="#i-search"/></svg></button><span class="nav-divider"></span><button class="icon-button" id="theme-button" aria-label="切换深色模式" aria-pressed="false"><svg class="icon"><use href="#i-moon"/></svg></button><button class="icon-button mobile-menu" id="menu-button" aria-expanded="false" aria-controls="nav-links" aria-label="展开导航"><svg class="icon"><use href="#i-menu"/></svg></button></div>

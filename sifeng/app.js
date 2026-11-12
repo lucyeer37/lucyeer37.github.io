@@ -29,11 +29,11 @@
     const route = parts[0] || 'home';
     let detail;
     try { detail = decodeURIComponent(parts.slice(1).join('/')); } catch { detail = ''; }
-    const routeNames = {home:name,archives:'归档',tags:'标签',categories:'分类',links:'友情链接',about:'关于'};
+    const routeNames = {home:name,archives:'归档',tags:'标签',categories:'分类',links:'友情链接',guestbook:'留言板',about:'关于'};
     let title = routeNames[route] || '文章';
     $('#hero').classList.toggle('inner', route !== 'home');
     $('#hero-title').textContent = title;
-    $('#hero-subtitle').textContent = route === 'home' ? config.subtitle || '肆意生长，自在如风。' : {archives:'把走过的日子，轻轻收藏。',tags:'每个关键词，都是一条新的小径。',categories:'给思绪，留一个安放的地方。',links:'山海之间，总有同路的风。',about:'一个小小的空间，一种自在的节奏。'}[route] || '';
+    $('#hero-subtitle').textContent = route === 'home' ? config.subtitle || '肆意生长，自在如风。' : {archives:'把走过的日子，轻轻收藏。',tags:'每个关键词，都是一条新的小径。',categories:'给思绪，留一个安放的地方。',links:'山海之间，总有同路的风。',guestbook:'风过留声，见字如面。',about:'一个小小的空间，一种自在的节奏。'}[route] || '';
     document.querySelectorAll('[data-route]').forEach(el => { const active = el.dataset.route === route; el.classList.toggle('active', active); if (active) el.setAttribute('aria-current', 'page'); else el.removeAttribute('aria-current'); });
     let html = '';
     if (route === 'home') {
@@ -48,6 +48,8 @@
       const selected = posts.filter(p => isTags ? (p.tags || []).includes(detail) : p.category === detail);
       html = heading(detail || (isTags ? '所有标签' : '文章分类'), isTags ? 'TAGS' : 'CATEGORIES', `${values.length} 个${isTags ? '标签' : '分类'}`);
       html += detail ? (selected.length ? selected.map(postCard).join('') : empty('这里暂时留白', '还没有与此相关的文章。')) : values.length ? `<div class="filter-list card">${values.map(v => `<a class="filter-chip" href="#/${route}/${encodeURIComponent(v)}">${escapeHTML(v)} <small>${posts.filter(p => isTags ? (p.tags || []).includes(v) : p.category === v).length}</small></a>`).join('')}</div>` : empty(isTags ? '灵感，还没有被命名' : '为未来的思绪，留个位置', isTags ? '文章添加标签后，会自动汇集在这里。' : '文章添加分类后，会自动整理在这里。');
+    } else if (route === 'guestbook') {
+      html = heading('风过留声', 'GUESTBOOK') + window.SIFENG_GUESTBOOK.layout();
     } else if (route === 'about') {
       html = heading('关于肆风', 'ABOUT') + `<div class="about-panel card"><span class="about-kicker">A SPACE TO BE MYSELF</span><h3>${escapeHTML(name)}</h3><p>${escapeHTML(config.subtitle || '')}</p><p>${escapeHTML(config.about || '关于我的故事，稍后再慢慢告诉你。')}</p></div>`;
     } else if (route === 'links') {
@@ -62,6 +64,7 @@
       html = empty('风把这一页吹远了', '可以通过顶部导航返回首页。', '<a href="#/">返回首页 →</a>', false);
     }
     $('#main-view').innerHTML = (loadingError ? '<p class="error-note" role="alert">文章列表暂时读取失败，请刷新重试。</p>' : '') + html;
+    if (route === 'guestbook') window.SIFENG_GUESTBOOK.mount();
     document.title = `${title === name ? name + ' · 自在如风' : title + ' · ' + name}`;
     $('#nav-links').classList.remove('open'); $('#menu-button').setAttribute('aria-expanded', 'false');
   }
